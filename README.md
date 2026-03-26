@@ -19,7 +19,14 @@
 | **3D & Math Models** | Blender, 概率统计, 线性代数 | 3D 资产管线构建, 游戏数值模型分析, 跨学科逻辑推演 |
 
 ---
+## 🌌 我的 3D 时空光锥模型 (Light Cone Model)
 
+这是一个使用 Three.js 实现的交互式物理可视化项目，展示了狭义相对论中的因果结构。
+
+### 🚀 [立即体验交互式 3D 模型](https://jianmoleisheng.github.io/)
+
+---
+![项目预览图](https://github.com/jianmoleisheng/jianmoleisheng/raw/main/index.html)
 ## 3. 核心业务模块与系统实现 (Core System Implementations)
 
 ### 3.1 个人财务健康度诊断与可视化风控系统
