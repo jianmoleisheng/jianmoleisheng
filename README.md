@@ -1,39 +1,40 @@
-# 嗨，我是 [你的名字] 👋
+# 缄默的个人作品集 (Jianmo's Portfolio) 🚀
 
-### 🎓 关于我 (CS & Industrial Engineering)
-我是一名 22 岁的技术探索者，致力于在**计算机科学**与**工业工程**的交叉领域寻找最优解。
+欢迎来到我的个人主页源码仓库！这是一个基于 HTML/CSS/JS 原生开发的响应式单页应用（SPA），用于展示我的全栈开发技能、核心项目以及跨学科的实践经历。
 
-- 🔭 **目前专注于：** 个人财务健康诊断与可视化分析系统的设计与实现（毕业设计）。
-- ⚙️ **跨学科兴趣：** 宏观经济学（凯恩斯主义）、行为经济学与逻辑推理。
-- 🎨 **创意探索：** 正在学习使用 **Blender** 制作《鸣潮》相关的 3D 动画。
-- 🤖 **AI 实验：** 深度探索 **OpenClaw** 等开源 AI Agent 项目。
+🌍 **在线预览我的个人网站：** [点击这里访问我的 GitHub Pages](https://你的用户名.github.io/你的仓库名)
 
 ---
 
-### 🛠 技术工具箱
+## 🛠️ 技术栈与核心能力
 
-| 类别 | 工具/语言 |
-| :--- | :--- |
-| **编程语言** | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black) |
-| **前端开发** | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white) |
-| **设计与建模**| ![Blender](https://img.shields.io/badge/Blender-F5792A?style=flat-square&logo=blender&logoColor=white) |
-| **自动化/AI** | ![OpenClaw](https://img.shields.io/badge/OpenClaw-Active-blue?style=flat-square) |
+* **后端与架构**：Java Core, 面向对象编程 (OOP), MySQL 数据库设计
+* **前端交互**：HTML5, CSS3, JavaScript (ES6+), 响应式布局, 原生 DOM 操作
+* **综合与前沿**：Python 数据处理, OpenClaw AI 代理配置, Blender 3D 建模, 概率统计与业务逻辑建模
 
 ---
 
-### 📊 GitHub 统计数据
+## 💻 核心项目亮点展示
 
-| 我的代码仓库数据 | 常用语言占比 |
-| :--- | :--- |
-| ![Stats](https://github-readme-stats.vercel.app/api?username=你的用户名&show_icons=true&theme=material-palenight) | ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=你的用户名&layout=compact&theme=material-palenight) |
+### 1. 个人财务健康诊断与可视化分析系统 (Java + 宏观经济模型)
+这是我目前正在主力开发的系统。不仅包含常规的增删改查，更核心的是将经济学模型转化为实际的代码逻辑。
 
----
+**核心诊断算法示例（Java）：**
+```java
+// 结合宏观经济与个人理财模型的财务健康度评估
+public class FinancialAnalyzer {
+    
+    public String evaluateHealth(double income, double expense, double debt) {
+        double savingsRate = (income - expense) / income;
+        double debtRatio = debt / income;
+        int healthScore = 100;
 
-### 💡 逻辑与思考
-> “在复杂系统面前，最优解往往隐藏在数据与心理的交界处。” 
-> 我热衷于解决逻辑谜题，并在代码中复刻复杂的经济学模型。
-
----
-
-### 📫 联系我
-- **博客/个人网站:e15609637806@Gmail.com
+        // 核心风控扣分逻辑
+        if (savingsRate < 0.2) healthScore -= 20;
+        if (debtRatio > 0.5) healthScore -= 30;
+        
+        if (healthScore >= 80) return "良好: 现金流健康，抗风险能力强";
+        else if (healthScore >= 60) return "预警: 建议优化收支结构，降低负债";
+        else return "危险: 存在高杠杆风险，需重组债务";
+    }
+}
