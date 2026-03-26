@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>缄默的个人作品集</title>
+    <style>
+        /* 基础样式与响应式设计 */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: #ffffff;
+            --border-radius: 12px;
+        }
+
+        /* 护眼暗色模式变量 */
+        [data-theme="dark"] {
+            --primary-color: #ecf0f1;
+            --secondary-color: #5dade2;
+            --accent-color: #e74c3c;
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --card-bg: #1e1e1e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 导航栏 */
+        header {
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            box-sizing: border-box;
+            transition: background-color 0.3s;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* 头部展示区 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: linear-gradient(135deg, rgba(52,152,219,0.05) 0%, rgba(44,62,80,0.05) 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(52,152,219,0.2);
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        /* 通用区块样式 */
+        section {
+            padding: 100px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            font-size: 2.2rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-color);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* 关于我区块 */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 技能标签 */
+        .skills-category {
+            margin-bottom: 30px;
+        }
+        
+        .skills-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .skill-tag {
+            background-color: var(--card-bg);
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* 项目卡片网格 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.4rem;
+        }
+
+        .tech-stack {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        /* 主题切换按钮 */
+        #theme-toggle {
+            background: none;
+            border: 2px solid var(--secondary-color);
+            color: var(--text-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 20px;
+            transition: all 0.3s;
+        }
+
+        #theme-toggle:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: var(--card-bg);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo" style="font-weight: 800; font-size: 1.4rem; letter-spacing: 1px; color: var(--primary-color);">缄默</div>
+        <nav>
+            <a href="#about">关于我</a>
+            <a href="#skills">技术栈</a>
+            <a href="#projects">项目经历</a>
+            <button id="theme-toggle">切换暗色模式</button>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>你好，我是 缄默</h1>
+        <p>工科计算机科学与技术背景 | 专注于后端开发与前端交互 | 寻找研发实习机会</p>
+        <a href="#projects" class="btn">查看我的项目</a>
+    </div>
+
+    <section id="about">
+        <h2>关于我</h2>
+        <div class="about-content">
+            <p>我是一名横跨工业工程与计算机科学的工科生。得益于扎实的微积分、线性代数与概率论基础，我对底层逻辑推理和算法模型有着天然的敏锐度。在专业学习之外，我广泛涉猎宏观经济学与心理学，这让我不仅关注代码如何运行，更关注系统如何为真实世界的业务和用户提供价值。</p>
+            <p>我目前正在深入学习 Java 后端生态与前端技术体系，热衷于将复杂的数据结构转化为直观的业务系统。我是一个持续学习者，喜欢从零开始攻克技术难题，无论是重度使用电子产品探索前沿 AI 工具，还是跨界学习 3D 建模，我都乐在其中。</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>技术栈与能力矩阵</h2>
+        
+        <div class="skills-category">
+            <h3>后端开发 & 数据库</h3>
+            <div class="skills-container">
+                <span class="skill-tag">Java 核心</span>
+                <span class="skill-tag">面向对象编程 (OOP)</span>
+                <span class="skill-tag">MySQL 数据库设计</span>
+                <span class="skill-tag">Python</span>
+            </div>
+        </div>
+
+        <div class="skills-category">
+            <h3>前端开发 & UI/UX</h3>
+            <div class="skills-container">
+                <span class="skill-tag">HTML5 / CSS3</span>
+                <span class="skill-tag">JavaScript (ES6+)</span>
+                <span class="skill-tag">数据可视化</span>
+                <span class="skill-tag">响应式布局开发</span>
+            </div>
+        </div>
+
+        <div class="skills-category">
+            <h3>工具、扩展与通用能力</h3>
+            <div class="skills-container">
+                <span class="skill-tag">OpenClaw AI 代理配置</span>
+                <span class="skill-tag">Blender 3D 建模与动画</span>
+                <span class="skill-tag">高等数学与概率统计模型</span>
+                <span class="skill-tag">逻辑推理与业务分析</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>核心项目与实践</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>个人财务健康诊断与可视化分析系统</h3>
+                <div class="tech-stack">Java / MySQL / JavaScript / 数据可视化</div>
+                <p><strong>毕业设计项目 (进行中)</strong></p>
+                <p>设计并独立开发的一套全面分析个人财务状况的系统。后端采用 <strong>Java</strong> 处理核心业务逻辑与财务指标计算，结合 MySQL 进行结构化数据存储；前端利用 JS 绘制动态图表，直观呈现收支模型与财务健康度诊断结果。</p>
+            </div>
+            
+            <div class="card">
+                <h3>基于 OpenClaw 的智能体自动化部署</h3>
+                <div class="tech-stack">OpenClaw / Python / AI Agent</div>
+                <p><strong>前沿技术探索</strong></p>
+                <p>参与并实践开源 AI 代理项目 OpenClaw 的配置与调试。探索了将自然语言指令转化为自动化工作流的可能性，加深了对大语言模型 API 接口调用和智能体运行逻辑的理解。</p>
+            </div>
+
+            <div class="card">
+                <h3>交互式动态轮播图组件开发</h3>
+                <div class="tech-stack">HTML / CSS / 原生 JavaScript</div>
+                <p><strong>前端组件开发</strong></p>
+                <p>从零手写实现的轻量级前端轮播图组件，不依赖第三方库。深入处理了 DOM 操作、定时器逻辑以及边界条件判定，实现了平滑过渡动画与自适应布局，巩固了前端基础底层功底。</p>
+            </div>
+
+            <div class="card">
+                <h3>《鸣潮》3D 饭制动画与概率模型分析</h3>
+                <div class="tech-stack">Blender / 概率统计 / 游戏机制分析</div>
+                <p><strong>跨界综合实践</strong></p>
+                <p>结合对游戏抽卡概率及伤害机制的数学建模分析，运用 Blender 独立完成 3D 场景搭建、材质渲染与角色动作设计。展现了极强的自学能力和将抽象逻辑转化为具象视觉作品的执行力。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 缄默. All Rights Reserved.</p>
+        <p>Seeking Developer Internship | Email: jianmo@example.com | GitHub: github.com/jianmo</p>
+    </footer>
+
+    <script>
+        // 简单的暗色模式切换逻辑
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeToggleBtn.textContent = '切换暗色模式';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeToggleBtn.textContent = '切换亮色模式';
+            }
+        });
+
+        // 导航栏平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
