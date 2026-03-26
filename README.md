@@ -2,7 +2,7 @@
 
 欢迎来到我的个人主页源码仓库！这是一个基于 HTML/CSS/JS 原生开发的响应式单页应用（SPA），用于展示我的全栈开发技能、核心项目以及跨学科的实践经历。
 
-🌍 **在线预览我的个人网站：** [点击这里访问我的 GitHub Pages]([[https://jianmoleisheng.github.io/)](https://github.com/jianmoleisheng/jianmoleisheng/edit/main/README.md#L5C91
+🌍 **在线预览我的个人网站：** [点击这里访问我的 GitHub Pages]([[https://jianmoleisheng.github.io/)](点击)
 
 ---
 
