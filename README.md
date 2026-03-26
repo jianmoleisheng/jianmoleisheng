@@ -1,7 +1,7 @@
 # Engineering Portfolio & Knowledge Base
 
 > **项目状态**: 持续迭代中 (Active Development) <br>
-> **访问节点**: [GitHub Pages 生产环境直达]([https://jianmoleisheng.github.io/](https://github.com/jianmoleisheng/jianmoleisheng/))
+> **访问节点**: [GitHub Pages 生产环境直达]([https://jianmoleisheng.github.io/])
 
 ## 1. 工程概述 (Engineering Overview)
 
