@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>高精度科技时空光锥模型 (修复版)</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #000; }
+        #label-container { 
+            position: absolute; top: 15px; left: 15px; 
+            color: #44aaff; font-family: 'Courier New', monospace; 
+            pointer-events: none; z-index: 100;
+            text-shadow: 0 0 5px #44aaff;
+        }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+        }
+      }
+    </script>
+</head>
+<body>
+    <div id="label-container">
+        <div>> SYSTEM ONLINE</div>
+        <div>> INITIALIZING LIGHT CONE MODEL...</div>
+        <div>> Y-AXIS: TIME (ct)</div>
+    </div>
+    
+    <script type="module">
+        // 1. 自动引入所需的所有模块 (不会再漏依赖了)
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+        import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+        // 2. 初始化场景
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+        
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.toneMapping = THREE.ReinhardToneMapping; // 优化发光效果的色彩映射
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+
+        // 3. 生成动态科技纹理
+        function generateTechTexture() {
+            const size = 512;
+            const canvas = document.createElement('canvas');
+            canvas.width = size; canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            ctx.fillStyle = '#050510'; ctx.fillRect(0, 0, size, size);
+
+            ctx.strokeStyle = '#22eeff'; ctx.lineWidth = 1;
+            for (let i = 0; i < 50; i++) {
+                ctx.beginPath();
+                ctx.moveTo(Math.random() * size, Math.random() * size);
+                ctx.lineTo(Math.random() * size, Math.random() * size);
+                if (Math.random() > 0.5) ctx.lineTo(Math.random() * size, Math.random() * size);
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = '#ffffff';
+            for (let i = 0; i < 200; i++) {
+                ctx.beginPath();
+                ctx.arc(Math.random() * size, Math.random() * size, Math.random() * 1.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            return texture;
+        }
+        const techTexture = generateTechTexture();
+
+        // 4. 创建光锥
+        const coneRadius = 5; 
+        const coneHeight = 10;
+        const coneGeometry = new THREE.ConeGeometry(coneRadius, coneHeight, 64, 1, true);
+
+        // 未来光锥 (橙色发光)
+        const futureMat = new THREE.MeshStandardMaterial({
+            map: techTexture,
+            emissive: 0xffaa44,
+            emissiveMap: techTexture,
+            emissiveIntensity: 1.5,
+            transparent: true,
+            opacity: 0.8,
+            side: THREE.DoubleSide
+        });
+        const futureCone = new THREE.Mesh(coneGeometry, futureMat);
+        futureCone.rotation.x = Math.PI;
+        futureCone.position.y = coneHeight / 2;
+        scene.add(futureCone);
+
+        // 过去光锥 (蓝色发光)
+        const pastMat = new THREE.MeshStandardMaterial({
+            map: techTexture,
+            emissive: 0x44aaff,
+            emissiveMap: techTexture,
+            emissiveIntensity: 1.2,
+            transparent: true,
+            opacity: 0.7,
+            side: THREE.DoubleSide
+        });
+        const pastCone = new THREE.Mesh(coneGeometry, pastMat);
+        pastCone.position.y = -coneHeight / 2;
+        scene.add(pastCone);
+
+        // 5. “现在”发光核心
+        const nowPointGeo = new THREE.SphereGeometry(0.2, 32, 32);
+        const nowPointMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const nowPoint = new THREE.Mesh(nowPointGeo, nowPointMat);
+        scene.add(nowPoint);
+
+        // 6. 全息网格
+        const gridHelper = new THREE.GridHelper(15, 30, 0x44aaff, 0x112244);
+        scene.add(gridHelper);
+
+        // 7. 环境粒子
+        const particleGeo = new THREE.BufferGeometry();
+        const particleCount = 2000;
+        const positions = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount * 3; i++) {
+            positions[i] = (Math.random() - 0.5) * 15;
+        }
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particleMat = new THREE.PointsMaterial({ size: 0.05, color: 0x88ccff, transparent: true, opacity: 0.5 });
+        const particles = new THREE.Points(particleGeo, particleMat);
+        scene.add(particles);
+
+        // 8. 设置相机和灯光
+        camera.position.set(12, 8, 15);
+        camera.lookAt(0, 0, 0);
+
+        const ambientLight = new THREE.AmbientLight(0x222222);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(0xffffff, 1);
+        scene.add(pointLight);
+
+        // 9. 后期处理 (发光效果的核心)
+        const renderScene = new RenderPass(scene, camera);
+        const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.2, 0.4, 0.85);
+        const outputPass = new OutputPass(); // 修复现代 Three.js 的颜色显示
+
+        const composer = new EffectComposer(renderer);
+        composer.addPass(renderScene);
+        composer.addPass(bloomPass);
+        composer.addPass(outputPass);
+
+        // 10. 动画循环
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const elapsedTime = clock.getElapsedTime();
+
+            controls.update(); // 鼠标控制必须放在循环里更新
+
+            // 纹理流动
+            techTexture.offset.y = elapsedTime * -0.1;
+
+            // 整体缓慢旋转
+            scene.rotation.y += 0.002;
+
+            // 粒子闪烁与旋转
+            particles.rotation.y = elapsedTime * 0.02;
+            particles.material.opacity = 0.3 + 0.2 * Math.sin(elapsedTime * 3);
+
+            // 核心脉冲
+            nowPoint.scale.setScalar(1 + 0.2 * Math.sin(elapsedTime * 4));
+
+            // 使用 composer 渲染带有后期发光的效果
+            composer.render();
+        }
+        animate();
+
+        // 窗口缩放适配
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
